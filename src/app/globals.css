@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------
+   AFNAN ABBASI — Editorial design system
+   Light is the default. Add .dark to <html> for dark mode.
+------------------------------------------------------- */
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: #F3F0E9;
+    --foreground: #171717;
+    --obsidian: #0A0A0A;
+    --charcoal: #171717;
+    --ivory: #F3F0E9;
+    --muted: #706D66;
+    --champagne: #A88A5D;
+    --champagne-light: #C6AD83;
+    --champagne-dark: #80643D;
+    --surface: #EAE6DE;
+    --surface-raised: rgba(255, 255, 255, 0.58);
+    --border-subtle: rgba(23, 23, 23, 0.12);
+    --border-hover: rgba(168, 138, 93, 0.42);
+    --shadow-editorial: 0 18px 60px rgba(23, 23, 23, 0.07);
+    --selection-bg: #C6AD83;
+    --selection-fg: #0A0A0A;
+    --scrollbar-track: #EAE6DE;
+    --scrollbar-thumb: #C7C0B4;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+    --background: #0A0A0A;
+    --foreground: #F3F0E9;
+    --muted: #A6A39D;
+    --champagne: #C6AD83;
+    --champagne-light: #E0CFA8;
+    --champagne-dark: #8F764D;
+    --surface: #171717;
+    --surface-raised: rgba(255, 255, 255, 0.045);
+    --border-subtle: rgba(243, 240, 233, 0.10);
+    --border-hover: rgba(198, 173, 131, 0.35);
+    --shadow-editorial: 0 18px 60px rgba(0, 0, 0, 0.22);
+    --selection-bg: #C6AD83;
+    --selection-fg: #0A0A0A;
+    --scrollbar-track: #0A0A0A;
+    --scrollbar-thumb: #33312D;
+  }
+
+  html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: background-color 350ms ease, color 350ms ease;
+  }
+
+  body {
+    min-height: 100%;
+    background: var(--background);
+    color: var(--foreground);
+    overflow-x: clip;
+    transition: background-color 350ms ease, color 350ms ease;
+  }
+
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  .font-serif-editorial {
+    font-family: var(--font-serif), Georgia, serif;
+    letter-spacing: -0.035em;
+  }
+
+  .font-sans-clean {
+    font-family: var(--font-sans), sans-serif;
+  }
+
+  .theme-bg {
+    background-color: var(--background);
+  }
+
+  .theme-fg {
+    color: var(--foreground);
+  }
+
+  .theme-muted {
+    color: var(--muted);
+  }
+
+  .theme-surface {
+    background-color: var(--surface);
+  }
+
+  .theme-border {
+    border-color: var(--border-subtle);
+  }
+
+  /* Editorial scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--champagne);
+  }
+}
+
+/* ---- Lenis ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ---- Seamless editorial marquee ----
+   Use two identical content groups for a seamless loop.
+*/
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee {
+  display: flex;
+  flex: 0 0 auto;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ---- Film grain ---- */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+}
+
+/* ---- Theme-aware editorial borders ---- */
+.editorial-border {
+  border: 1px solid var(--border-subtle);
+  transition: border-color 400ms ease, box-shadow 400ms ease;
+}
+
+.editorial-border:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 28px rgba(198, 173, 131, 0.07);
+}
+
+/* ---- Champagne gradient text ---- */
+.text-gold-gradient {
+  background: linear-gradient(125deg, var(--foreground) 0%, var(--champagne) 72%, var(--muted) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- React Bits-inspired spotlight card ---- */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  background: radial-gradient(
+    500px circle at var(--mouse-x) var(--mouse-y),
+    rgba(198, 173, 131, 0.11),
+    transparent 60%
+  );
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ---- Optional glitch text utility ---- */
+@keyframes glitch-1 {
+  0% { clip-path: inset(40% 0 60% 0); transform: translate(-3px, 0); }
+  20% { clip-path: inset(70% 0 10% 0); transform: translate(3px, 0); }
+  40% { clip-path: inset(10% 0 85% 0); transform: translate(-2px, 0); }
+  60% { clip-path: inset(55% 0 35% 0); transform: translate(2px, 0); }
+  80% { clip-path: inset(20% 0 70% 0); transform: translate(-1px, 0); }
+  100% { clip-path: inset(40% 0 60% 0); transform: translate(0, 0); }
+}
+
+@keyframes glitch-2 {
+  0% { clip-path: inset(60% 0 30% 0); transform: translate(2px, 0); }
+  25% { clip-path: inset(15% 0 75% 0); transform: translate(-2px, 0); }
+  50% { clip-path: inset(80% 0 10% 0); transform: translate(3px, 0); }
+  75% { clip-path: inset(30% 0 55% 0); transform: translate(-1px, 0); }
+  100% { clip-path: inset(60% 0 30% 0); transform: translate(0, 0); }
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0 auto auto 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms ease;
+}
+
+.glitch-text:hover::before {
+  opacity: 0.7;
+  color: var(--champagne);
+  animation: glitch-1 400ms infinite;
+}
+
+.glitch-text:hover::after {
+  opacity: 0.5;
+  color: var(--foreground);
+  animation: glitch-2 400ms infinite;
+  mix-blend-mode: difference;
+}
+
+/* ---- Accessibility: respect reduced-motion preferences ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}
