@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ArrowUp, Mail } from "lucide-react";
 import { InstagramIcon, TikTokIcon } from "@/components/ui/Icons";
 import {
@@ -18,6 +19,12 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const [year, setYear] = useState(2026);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   const instagram =
     SOCIAL_LINKS.find((social) => social.id === "instagram") ?? SOCIAL_LINKS[0];
   const tiktok =
@@ -139,7 +146,7 @@ export default function Footer() {
 
         <div className="flex flex-col gap-3 pt-7 font-mono text-[9px] tracking-[0.08em] text-[#77736B] dark:text-[#737373] sm:flex-row sm:items-center sm:justify-between sm:text-[10px]">
           <span>
-            © {new Date().getFullYear()} {SITE_CONFIG.name}. All editorial rights reserved.
+            © {year} {SITE_CONFIG.name}. All editorial rights reserved.
           </span>
           <span>Crafted with Next.js · Lenis · GSAP</span>
         </div>
